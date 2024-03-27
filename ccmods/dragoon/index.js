@@ -52,12 +52,27 @@ Game.registerMod('dragoon',{
     	if (output=='0') negative=false;
     	var end=output+decimal;
       return (negative?'-':'')+'dra'+end+'oon';
+    };
+    SimpleBeautify=function(val) {
+    	var str=val.toString();
+    	var str2='';
+    	for (var i in str)//add commas
+    	{
+    		if ((str.length-i)%3==0 && i>0) str2+=',';
+    		str2+=str[i];
+    	}
+    	return 'dra'+str2+'oon';
     }
+    Game.registerHook('ticker',function(){
+      var pool=[];
+      for (let i=0;i<120;i++) pool.push(`Dra${Math.floor((Math.random()*98)+1)}oon: followed by ${Math.floor((Math.random()*98)+1)} Dragoons`);
+      return pool;
+    });
   },
   save:function() {
     return 'dragoon';
   },
   load:function(str) {
-    Game.Notify('Dragoon','Dragoon');
+    Game.Notify('Dragoon','Dragoon'+writeIcon([9,9]),[9,9]);
   }
 });
