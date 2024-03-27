@@ -73,6 +73,6 @@ Game.registerMod('dragoon',{
     return 'dragoon';
   },
   load:function(str) {
-    Game.Notify('Dragoon','Dragoon'+writeIcon([9,9]),[9,9]);
+    Game.Notify('Dragoon','Dragoon',[9,9]);
   }
 });
