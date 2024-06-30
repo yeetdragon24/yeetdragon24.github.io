@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Cookie Clicker Save File Converter</title>
+		<link rel="stylesheet" href="https://orteil.dashnet.org/cookieclicker/style.css">
+		<style>
+		@keyframes flashGreen {
+			from { background-color:#00FF00 }
+			to { background-color:#FFFFFF }
+		}
+		.flashGreen {
+			animation-name: flashGreen;
+			animation-duration: 0.5s;
+		}
+		@keyframes flashRed {
+			from { background-color:#FF0000 }
+			to { background-color:#FFFFFF }
+		}
+		.flashRed {
+			animation-name: flashRed;
+			animation-duration: 0.5s;
+		}
+		</style>
+	</head>
+	<body>
+		<h3 style="font-size:24px;position:fixed;text-align:center;width:100%;top:1%" class="prompt fancyText">Mobile to PC Cookie Clicker Save Converter</h3>
+		<div id="content" style="margin:15px;left:20%;position:fixed">
+			
+			<br><br>
+			<p class="fancyText">Input<hp>
+			<div id="form">
+				<textarea id="input" rows="20" cols="75" name="input"></textarea>
+				<br>
+				<a class="option" onclick="convertSave()">Convert</a>
+			</div>
+			<p id="error" class="warning"></p>
+			<p class="fancyText">Output</p>
+			<div id="outputSection">
+				<textarea id="output" rows="20" cols="75" style="position:absolute"></textarea>
+			</div>
+		</div>
+		<div id="info" class="smallFramed prompt" style="width:300px;height:90%;position:fixed;right:20%;top:6%;text-align:center;">
+			<p style="padding:8px;">The Cookie Clicker mobile app saves data differently to the PC version, making players unable to easily transfer their save data between the platforms
+			without the aid of a save editor. This converter takes the information from a mobile save file and loads it as if PC Cookie Clicker was loading a PC Cookie Clicker save, but without
+			running the game at all. Then, the normal PC Cookie Clicker save function takes this loaded data as if it was saving the game and gives the PC save file.</p>
+			<p style="padding:8px">If you find/experience any issues, DM yeetdragon24 on discord.</p>
+			<a id="infoToggle" onclick="toggleExtraInfo()" class="option" style="position:absolute;bottom:0;left:0;margin:8px">Toggle extra info</a>
+			<p style="position:absolute;bottom:0;right:0;margin:8px">Made by yeetdragon24</p>
+		</div>
+		<script src="converter.js"></script>
+		<script>
+		var triggerAnim=function(element,anim) //by Orteil
+		{
+			if (!element) return;
+			element.classList.remove(anim);
+			void element.offsetWidth;
+			element.classList.add(anim);
+		};
+		function convertSave() {
+			let input = document.getElementById('input');
+			let save = input.value;
+			let output = document.getElementById('output');
+			let errorEl = document.getElementById('error');
+			try {
+				output.innerHTML = convert(atob(save));
+				output.focus();
+				//output.select();
+				triggerAnim(output,'flashGreen');
+				document.getElementById('error').innerHTML = '<span style="color:#00FF00">Save converted successfully.</span>';
+			} catch(error) {
+				triggerAnim(input,'flashRed');
+				errorEl.innerHTML = `Invalid save.${extraInfo?` (${error})`:''}`;
+				triggerAnim(errorEl,'pucker');
+			}
+		}
+		var extraInfo = 1;
+		function toggleExtraInfo() {
+			extraInfo = !extraInfo;
+			document.getElementById('infoToggle').innerHTML = `Toggle extra info ${extraInfo?'ON':'OFF'}`;
+		}
+		window.onload = () => { 
+			toggleExtraInfo();
+			document.getElementById('input').focus();
+		};
+		window.addEventListener('keypress', (event) => {
+			if (document.activeElement == document.getElementById('input') && event.key === "Enter") {
+				event.preventDefault();
+				convertSave();
+			}
+		});
+		</script>
+	</body>
+</html>
