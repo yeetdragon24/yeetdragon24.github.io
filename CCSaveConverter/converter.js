@@ -1,7 +1,7 @@
 App = 0;
 var Game = {};
 Game.UpgradesById = {};
-for (let i = 0; i < 716; i++) {
+for (let i = 0; i < 875; i++) {
 	Game.UpgradesById[i] = {name:i};
 }
 Game.AchievementsById = {};
@@ -273,6 +273,7 @@ function convert(str) {
 	let save = JSON.parse(str);
 	Game.lastDate = save.time;
 	Game.version = 2.052;
+
 	
 	Game.prefs = save.settings;
 	Game.volume = 50;
@@ -330,8 +331,8 @@ function convert(str) {
 	Game.heavenlyCookies = 0;
 	Game.ascensionMode = 0;
 	
-	Game.lumps = 0;
-	Game.lumpsTotal = 0;
+	Game.lumps = Math.floor((Date.now() - Game.fullDate) / 1000 / 3600 / 24);
+	Game.lumpsTotal = Game.lumps;
 	Game.lumpRefill = 0;
 	Game.lumpCurrentType = 0;
 	
