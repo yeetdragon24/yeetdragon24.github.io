@@ -335,6 +335,7 @@ function convert(str) {
 	Game.lumpsTotal = Game.lumps;
 	Game.lumpRefill = 0;
 	Game.lumpCurrentType = 0;
+	Game.lumpT = Date.now();
 	
 	Game.heralds = 0;
 	Game.cookiesSent = 0;
