@@ -162,8 +162,8 @@
 			str += ']';
 			return b64 ? btoa(str) : str;
 		}
-		EM.loadSave = function(str) {
-			save = JSON.parse(atob(str));
+		EM.loadSave = function(str, b64) {
+			let save = JSON.parse(b64 ? atob(str) : str);
 			if (!save) return false;
 			EM.customBuffs = save[0];
 			EM.customUpgrades = save[1];
